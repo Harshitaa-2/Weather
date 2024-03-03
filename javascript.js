@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const temperature = data.main.temp;
       const cityName = data.name;
       const weatherDescription = data.weather[0].description.toLowerCase();
-      const iconUrl = getWeatherIcon(weatherDescription, temperature);
+      const iconUrl = getWeatherIcon(weatherDescription);
   
       weatherInfo.innerHTML = `
         <h3>Weather in ${cityName}</h3>
@@ -40,13 +40,20 @@ document.addEventListener('DOMContentLoaded', () => {
       weatherContainer.appendChild(weatherInfo);
     }
   
-    function getWeatherIcon(weatherDescription, temperature) {
-      if (temperature < 20 && weatherDescription.includes('scattered clouds')) {
-        return 'scattered-clouds-icon.jpg';
+    function getWeatherIcon(weatherDescription) {
+      const lowercaseWeatherDescription = weatherDescription.toLowerCase();
+      
+      if (lowercaseWeatherDescription.includes('scattered clouds')) {
+        return 'Scattered clouds.jpg'; 
+      } else if (lowercaseWeatherDescription.includes('rain')) {
+        return 'rain.jpg'; 
+      } else if (lowercaseWeatherDescription.includes('clear')) {
+        return 'clear sky.png'; 
+      } else if (lowercaseWeatherDescription.includes('thunderstorm')) {
+        return 'Thunderstorms.jpg'; 
       } else {
-        // Default icon for other weather conditions or temperatures
-        return 'default-icon.png';
+        return 'default weather icon.png'; 
       }
     }
-  });
-  
+});
+
